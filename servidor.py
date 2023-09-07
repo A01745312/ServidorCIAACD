@@ -21,7 +21,14 @@ def modeloPrediccion():
     # Procesar datos de entrada
     contenido = request.json
     print(contenido)
-    return jsonify({'resultado': "Hi!"})
+    datosEntrada = np.array([
+        0.88, 0, 2.6, 0.098, 25, 67, 0.9968,
+        contenido['pH'],
+        contenido['sulphates'],
+        contenido['alcohol']
+    ])
+    resultado = dt.predict(datosEntrada.reshape(1, -1))
+    return jsonify({'resultado': str(resultado[0])})
 
 
 if __name__ == '__main__':
